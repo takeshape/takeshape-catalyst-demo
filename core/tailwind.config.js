@@ -4,7 +4,8 @@ const config = {
     './app/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './vibes/**/*.{ts,tsx}',
-    '!./node_modules/**', // Exclude everything in node_modules to speed up builds
+    './node_modules/@takeshape/react-chat-agent/dist/**/*.js',
+    // '!./node_modules/**', // Exclude everything in node_modules to speed up builds
   ],
   theme: {
     extend: {

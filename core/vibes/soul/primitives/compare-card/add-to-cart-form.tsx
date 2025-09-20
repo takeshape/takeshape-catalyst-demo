@@ -25,6 +25,7 @@ interface Props {
   preorderLabel: string;
   isPreorder?: boolean;
   addToCartAction: CompareAddToCartAction;
+  size?: 'small' | 'medium';
 }
 
 export function AddToCartForm({
@@ -34,6 +35,7 @@ export function AddToCartForm({
   isPreorder = false,
   preorderLabel,
   disabled = false,
+  size = 'medium',
 }: Props) {
   const router = useRouter();
   const events = useEvents();
@@ -78,7 +80,7 @@ export function AddToCartForm({
   return (
     <form {...getFormProps(form)} action={formAction}>
       <input name="id" type="hidden" value={productId} />
-      <Button className="w-full" disabled={disabled} loading={pending} size="medium" type="submit">
+      <Button className="w-full" disabled={disabled} loading={pending} size={size} type="submit">
         {isPreorder ? preorderLabel : addToCartLabel}
       </Button>
     </form>

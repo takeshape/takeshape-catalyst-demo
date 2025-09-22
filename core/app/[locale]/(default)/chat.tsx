@@ -6,13 +6,13 @@ import {
   createReferenceBlock,
   ReferenceComponent,
 } from '@takeshape/react-chat-agent/blocks/reference';
+import { useCallback, useState } from 'react';
 
 import { AddToCartForm } from '@/vibes/soul/primitives/compare-card/add-to-cart-form';
 import { addToCart } from '~/app/[locale]/(default)/compare/_actions/add-to-cart';
 import { Image } from '~/components/image';
 import { Link } from '~/components/link';
-import { useCallback, useState } from 'react';
-import { getCartId, setCartId } from '~/lib/cart';
+import { setCartId } from '~/lib/cart';
 
 interface ProductReference {
   entityId: number;
@@ -127,7 +127,17 @@ export function AiChat({ apiKey, endpoint }: AiChatProps) {
       inputName="brandedChat"
       onMessageResponse={handleMessage}
       referenceDataFragment={productFragment}
-      welcomeMessage="Hi! How can I help you?"
+      theme={{
+        header: {
+          backgroundColor: '#102205',
+          textColor: '#e8ffdc',
+          buttonHoverColor: '#e8ffdc',
+        },
+        userBubble: {
+          backgroundColor: '#102205',
+        },
+      }}
+      welcomeMessage="Hi! How can I help you???"
     />
   );
 }

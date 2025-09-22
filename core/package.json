@@ -32,7 +32,7 @@
     "@radix-ui/react-toggle-group": "^1.1.10",
     "@radix-ui/react-tooltip": "^1.2.7",
     "@t3-oss/env-core": "^0.13.6",
-    "@takeshape/react-chat-agent": "^0.2.0",
+    "@takeshape/react-chat-agent": "^0.3.0",
     "@upstash/redis": "^1.35.0",
     "@vercel/analytics": "^1.5.0",
     "@vercel/functions": "^2.2.12",

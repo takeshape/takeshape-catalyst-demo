@@ -137,7 +137,7 @@ export function AiChat({ apiKey, endpoint }: AiChatProps) {
           backgroundColor: '#102205',
         },
       }}
-      welcomeMessage="Hi! How can I help you???"
+      welcomeMessage="Welcome to Frond & Co! 🌱 I'm here to help you find the perfect plants and accessories for your space. What can I help you with today?"
     />
   );
 }

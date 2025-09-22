@@ -1,17 +1,18 @@
 'use client';
 
-import { AiChatWidget } from '@takeshape/react-chat-agent';
+import { AiChatWidget, AiChatWidgetProps } from '@takeshape/react-chat-agent';
 import { markdownBlock } from '@takeshape/react-chat-agent/blocks/markdown';
 import {
   createReferenceBlock,
   ReferenceComponent,
 } from '@takeshape/react-chat-agent/blocks/reference';
 
-
 import { AddToCartForm } from '@/vibes/soul/primitives/compare-card/add-to-cart-form';
 import { addToCart } from '~/app/[locale]/(default)/compare/_actions/add-to-cart';
 import { Image } from '~/components/image';
 import { Link } from '~/components/link';
+import { useCallback, useState } from 'react';
+import { getCartId, setCartId } from '~/lib/cart';
 
 interface ProductReference {
   entityId: number;
@@ -95,7 +96,23 @@ export interface AiChatProps {
   endpoint?: string;
 }
 
+type MessageResponse = Parameters<Required<AiChatWidgetProps>['onMessageResponse']>[0];
+
 export function AiChat({ apiKey, endpoint }: AiChatProps) {
+  const [agentCartId, setAgentCartId] = useState<string>();
+  const handleMessage = useCallback(
+    (response: MessageResponse) => {
+      const cartId = response.sessionMemory?.cartId;
+
+      // Sync the cart the agent is using with the cart the browser is using
+      if (typeof cartId === 'string' && agentCartId !== cartId) {
+        setAgentCartId(cartId);
+        void setCartId(cartId);
+      }
+    },
+    [agentCartId],
+  );
+
   if (!apiKey || !endpoint) {
     return null;
   }
@@ -108,6 +125,7 @@ export function AiChat({ apiKey, endpoint }: AiChatProps) {
       endpoint={endpoint}
       fallbackBlock={markdownBlock}
       inputName="brandedChat"
+      onMessageResponse={handleMessage}
       referenceDataFragment={productFragment}
       welcomeMessage="Hi! How can I help you?"
     />
